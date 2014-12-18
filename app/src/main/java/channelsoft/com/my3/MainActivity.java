@@ -48,6 +48,12 @@ public class MainActivity extends Activity {
                     intent.setClass(MainActivity.this,AudioActivity.class);
                     startActivity(intent);
                 }
+                if("弹出信息".equals(name)){
+                    Log.d(MainActivity.ACTIVITY_TAG,"进入弹出信息");
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this,AlertActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

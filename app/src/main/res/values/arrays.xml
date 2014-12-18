@@ -2,8 +2,7 @@
 <resources>
     <string-array name="chapter">
         <item>HelloWorld</item>
-        <item>星期选择</item>
-        <item>alert信息</item>
+        <item>弹出信息</item>
         <item>录音</item>
         <item>问题竞猜</item>
     </string-array>
