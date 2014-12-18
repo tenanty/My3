@@ -16,6 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChangeActivity2" android:label="第二个activity正在展示" ></activity>
+        <activity android:name=".HelloWorldActivity" android:label="HelloWorld展示"></activity>
+        <activity android:name=".AudioActivity" android:label="录音展示"></activity>
     </application>
 
 </manifest>

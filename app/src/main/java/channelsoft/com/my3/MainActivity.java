@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -24,8 +26,33 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final ListView list = (ListView)findViewById(R.id.listView);
 
-        Button button = (Button)findViewById(R.id.button);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = (String) list.getItemAtPosition(position);
+                Log.d(MainActivity.ACTIVITY_TAG," 点击位置:"+ name);
+                if("HelloWorld".equals(name)){
+                    Log.d(MainActivity.ACTIVITY_TAG,"进入helloWorld页面.");
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this,HelloWorldActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name","Tom");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+                if("录音".equals(name)){
+                    Log.d(MainActivity.ACTIVITY_TAG,"进入录音页面.");
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this,AudioActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+       /* Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,10 +67,11 @@ public class MainActivity extends Activity {
                 intent.putExtras(bundle);
                 //调用startActivity方法发送意图给系统
                 startActivity(intent);
+
                 //关闭当前activity，添加了该语句后，用户通过点击返回键是无法返回该activity的
                 //MainActivity.this.finish();
             }
-        });
+        });*/
     }
 
 
@@ -85,7 +113,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.d(MainActivity.ACTIVITY_TAG,"进入 onShowDialogClick1().");
-                //which是选中的位置(基于0的)
+                //which是选中的位置(从0开始)
                 String[] items = getResources().getStringArray(R.array.select_days);
                 Toast.makeText(MainActivity.this, items[which], Toast.LENGTH_LONG).show();
             }
