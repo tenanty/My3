@@ -19,6 +19,7 @@
         <activity android:name=".HelloWorldActivity" android:label="HelloWorld展示"></activity>
         <activity android:name=".AudioActivity" android:label="录音展示"></activity>
         <activity android:name=".AlertActivity" android:label="弹出信息"></activity>
+        <activity android:name=".UploadActivity" android:label="文件上传"></activity>
     </application>
 
     <!-- 联网权限 -->

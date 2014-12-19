@@ -5,6 +5,7 @@
         <item>弹出信息</item>
         <item>录音</item>
         <item>问题竞猜</item>
+        <item>文件上传</item>
     </string-array>
     
     <string-array name="select_days">

@@ -54,6 +54,12 @@ public class MainActivity extends Activity {
                     intent.setClass(MainActivity.this,AlertActivity.class);
                     startActivity(intent);
                 }
+                if("文件上传".equals(name)){
+                    Log.d(MainActivity.ACTIVITY_TAG,"进入文件上传");
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this,UploadActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
