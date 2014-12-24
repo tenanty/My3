@@ -7,8 +7,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +19,7 @@
         <activity android:name=".AudioActivity" android:label="录音展示"></activity>
         <activity android:name=".AlertActivity" android:label="弹出信息"></activity>
         <activity android:name=".UploadActivity" android:label="文件上传"></activity>
+        <activity android:name=".OpenActivity" android:label="url打开"></activity>
     </application>
 
     <!-- 联网权限 -->
