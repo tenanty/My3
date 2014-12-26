@@ -2,8 +2,12 @@ package channelsoft.com.my3;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -13,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jivesoftware.smack.Chat;
@@ -30,6 +35,7 @@ import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -72,6 +78,7 @@ public class MainActivity extends Activity {
         hasExist();
         //连接openfire服务端
         conServer();
+
         final ListView list = (ListView) findViewById(R.id.listView);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,6 +124,13 @@ public class MainActivity extends Activity {
                     startActivity(intent);
                     return;
                 }
+                if("地理位置".equals(name)){
+                    Log.d(MainActivity.ACTIVITY_TAG,"地理位置");
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this,LocationActivity.class);
+                    startActivity(intent);
+                    return;
+                }
             }
         });
     }
@@ -148,12 +162,12 @@ public class MainActivity extends Activity {
                         @Override
                         public void processMessage(Chat chat, final Message message) {
                             Log.d(ACTIVITY_TAG, "xxReceived From [" + message + "] message:" + message.getBody());
-                                    android.os.Message msg = new android.os.Message();
-                                    msg.what = UPDATE_MESSAGE;
-                                    Bundle data = new Bundle();
-                                    data.putString("message", message.getBody());
-                                    msg.setData(data);
-                                    handler.sendMessage(msg);
+                            android.os.Message msg = new android.os.Message();
+                            msg.what = UPDATE_MESSAGE;
+                            Bundle data = new Bundle();
+                            data.putString("message", message.getBody());
+                            msg.setData(data);
+                            handler.sendMessage(msg);
                         }
                     });
                 }
@@ -217,7 +231,6 @@ public class MainActivity extends Activity {
         builder.show();
 
     }
-
 
     //空的监听类
     private class EmptyListener implements DialogInterface.OnClickListener {

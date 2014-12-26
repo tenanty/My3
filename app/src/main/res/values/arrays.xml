@@ -7,6 +7,7 @@
         <item>问题竞猜</item>
         <item>文件上传</item>
         <item>按钮</item>
+        <item>地理位置</item>
     </string-array>
     
     <string-array name="select_days">
