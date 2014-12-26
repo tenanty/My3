@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,25 +19,17 @@ import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.MessageListener;
-
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
-import org.jivesoftware.smack.RosterGroup;
-import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackAndroid;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 
 
 public class MainActivity extends Activity {
@@ -47,8 +38,8 @@ public class MainActivity extends Activity {
 
     public static final int UPDATE_MESSAGE = 1;
     File file;
-    MyHandler myHandler;
 
+    //处理器
     public Handler handler = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
@@ -73,28 +64,14 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(MainActivity.ACTIVITY_TAG, "XXXX");
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //显示hello
         Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT);
         //判断文件是否存在
         hasExist();
-        //测试信息
-        //SmackUtil.connectionOpenfire();
-
+        //连接openfire服务端
         conServer();
-
-        //子线程负责处理服务器初始化
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                conServer();
-//            }
-//        }).start();
-
-
         final ListView list = (ListView) findViewById(R.id.listView);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -164,14 +141,6 @@ public class MainActivity extends Activity {
             conn.login("y1", "y1");//登陆
             Log.d(ACTIVITY_TAG, "授权状态：" + conn.isAuthenticated());
             Log.d(ACTIVITY_TAG, "连接状态：" + conn.isConnected());
-            Chat chat = ChatManager.getInstanceFor(conn).createChat("y1", new MessageListener() {
-                @Override
-                public void processMessage(Chat chat, Message message) {
-                    Log.d(ACTIVITY_TAG, "获取消息：" + message);
-                    Log.d(ACTIVITY_TAG, "message.getBody():" + message.getBody());
-                    Toast.makeText(MainActivity.this, message.getBody(), Toast.LENGTH_SHORT).show();
-                }
-            });
             ChatManager.getInstanceFor(conn).addChatListener(new ChatManagerListener() {
                 @Override
                 public void chatCreated(Chat chat, boolean b) {
@@ -179,59 +148,16 @@ public class MainActivity extends Activity {
                         @Override
                         public void processMessage(Chat chat, final Message message) {
                             Log.d(ACTIVITY_TAG, "xxReceived From [" + message + "] message:" + message.getBody());
-//                            new Thread(new Runnable() {
-//                                @Override
-//                                public void run() {
                                     android.os.Message msg = new android.os.Message();
                                     msg.what = UPDATE_MESSAGE;
                                     Bundle data = new Bundle();
                                     data.putString("message", message.getBody());
                                     msg.setData(data);
                                     handler.sendMessage(msg);
-//                                }
-//                            }).start();
                         }
                     });
                 }
             });
-
-
-            Roster roster = conn.getRoster();
-            Collection<RosterEntry> entries = roster.getEntries();
-            for (RosterEntry entry : entries) {
-                Log.d(ACTIVITY_TAG, entry.getName() + "-" + entry.getUser() + "-" + entry.getType() + "-" + entry.getGroups().size());
-                Presence presence = roster.getPresence(entry.getUser());
-                Log.d(ACTIVITY_TAG, "-" + presence.getStatus() + "-" + presence.getFrom());
-            }
-
-            roster.addRosterListener(new RosterListener() {
-                @Override
-                public void entriesAdded(Collection<String> strings) {
-
-                }
-
-                @Override
-                public void entriesUpdated(Collection<String> strings) {
-
-                }
-
-                @Override
-                public void entriesDeleted(Collection<String> strings) {
-
-                }
-
-                @Override
-                public void presenceChanged(Presence presence) {
-
-                }
-            });
-
-            for (RosterGroup g : roster.getGroups()) {
-                for (RosterEntry entry : g.getEntries()) {
-                    System.out.println("Group:" + g.getName() + ">>" + entry.getName() + "-" + entry.getUser() + "-" + entry.getType() + "-" + entry.getGroups().size());
-                }
-            }
-
 
             Log.d(ACTIVITY_TAG, "系统初始化结束...");
         } catch (SmackException e) {
@@ -309,42 +235,6 @@ public class MainActivity extends Activity {
         Log.d(ACTIVITY_TAG, "文件是否存在:" + exists);
         return true;
     }
-
-    class MyHandler extends Handler {
-        public MyHandler() {
-        }
-
-        public MyHandler(Looper L) {
-            super(L);
-        }
-
-        // 子类必须重写此方法,接受数据
-        public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-            Log.d("MyHandler", "handleMessage......");
-            Log.d(MainActivity.ACTIVITY_TAG, "xxReceived From [" + msg + "] message:" + msg.getBody());
-        }
-    }
-
-    class MyThread implements Runnable {
-        public void run() {
-
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            Log.d("thread.......", "mThread........");
-            Message msg = new Message();
-            Bundle b = new Bundle();// 存放数据
-
-            MainActivity.this.myHandler.handleMessage(msg); // 向Handler发送消息,更新UI
-
-        }
-    }
-
 
 }
 
