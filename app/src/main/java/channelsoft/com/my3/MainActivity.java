@@ -69,11 +69,9 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(MainActivity.ACTIVITY_TAG, "XXXX");
+        Log.i(MainActivity.ACTIVITY_TAG, "进入 onCreate().");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //显示hello
-        Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT);
         //判断文件是否存在
         hasExist();
         //连接openfire服务端
@@ -124,10 +122,17 @@ public class MainActivity extends Activity {
                     startActivity(intent);
                     return;
                 }
-                if("地理位置".equals(name)){
-                    Log.d(MainActivity.ACTIVITY_TAG,"地理位置");
+                if ("地理位置".equals(name)) {
+                    Log.d(MainActivity.ACTIVITY_TAG, "地理位置");
                     Intent intent = new Intent();
-                    intent.setClass(MainActivity.this,LocationActivity.class);
+                    intent.setClass(MainActivity.this, LocationActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                if("翻页效果".equals(name)){
+                    Log.d(MainActivity.ACTIVITY_TAG,"翻页效果");
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, MainPageActivity.class);
                     startActivity(intent);
                     return;
                 }

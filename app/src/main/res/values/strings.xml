@@ -7,4 +7,27 @@
     <string name="left_button">左</string>
     <string name="right_button">右</string>
 
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="whats_new_msg1">"如你所知，
+微信不只是一个聊天工具"</string>
+    <string name="whats_new_title2">"一切从照片开始
+你拍了一张照片"</string>
+    <string name="whats_new_title3">你就拥有了自己的相册</string>
+    <string name="whats_new_msg3">将生活记录在相册中</string>
+    <string name="whats_new_title4">你可以记录每天的生活瞬间</string>
+    <string name="whats_new_title5">"朋友在给你拍照时，
+甚至可以同时把照片发到你的相册"</string>
+    <string name="whats_new_tip">这是Bence拍摄，同时发给你的照片，在你的相册中可以直接看到</string>
+    <string name="whats_new_title6">"在\"朋友圈\"，
+你可以了解朋友们的生活"</string>
+    <string name="whats_new_title7_01">如你所见，</string>
+    <string name="whats_new_title7_02">微信，是一个生活方式</string>
+    <string name="whats_new_start">微信 4.0</string>
+    <string name="whats_new_today">今天</string>
+    <string name="whats_new_yesterday">昨天</string>
+    <string name="whats_new_daybeforeyesterday">20</string>
+    <string name="whats_new_guangzhou">广州</string>
+    <string name="whats_new_march">3月</string>
+
 </resources>

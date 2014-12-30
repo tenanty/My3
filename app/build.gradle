@@ -29,6 +29,6 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile files('src/main/aidl/asmack-android-8-4.0.6.jar')
-    compile files('src/main/aidl/dnsjava-2.0.8.jar')
+//    compile files('src/main_page/aidl/asmack-android-8-4.0.6.jar')
+//    compile files('src/main_page/aidl/dnsjava-2.0.8.jar')
 }

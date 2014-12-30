@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
-
+    <!-- 使用ListView进行列表展现,罗列出相关的菜单 -->
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
