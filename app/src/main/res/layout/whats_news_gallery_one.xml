@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/whats_new_bg_01"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         style="@style/whats_new_title"

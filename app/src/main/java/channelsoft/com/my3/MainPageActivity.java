@@ -1,13 +1,16 @@
 package channelsoft.com.my3;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import channelsoft.com.my3.com.channelsoft.util.MyPagerAdapter;
 public class MainPageActivity extends Activity {
     //翻页插件
     private ViewPager mViewPager;
+    private Button button;
     private PagerTitleStrip mPageTitleStrip;
 
     //这7个是底部显示当前状态点imageView
@@ -40,6 +44,7 @@ public class MainPageActivity extends Activity {
         setContentView(R.layout.main_page);
 
         mViewPager = (ViewPager) findViewById(R.id.whatsnew_viewpager);
+
         mPageTitleStrip = (PagerTitleStrip) findViewById(R.id.pagertitle);
 
         mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
@@ -63,6 +68,8 @@ public class MainPageActivity extends Activity {
         View view5 = mLi.inflate(R.layout.whats_news_gallery_five, null);
         View view6 = mLi.inflate(R.layout.whats_news_gallery_six, null);
         View view7 = mLi.inflate(R.layout.whats_news_gallery_seven, null);
+
+
         /*
          * 这里将每一页显示的view存放到ArrayList集合中
          * 可以在ViewPager适配器中顺序调用展示
@@ -143,5 +150,16 @@ public class MainPageActivity extends Activity {
         }
     }
 
+    /**
+     * 点击之后效果
+     * @param v
+     */
+    public void onTest(View v){
+        Log.d(MainActivity.ACTIVITY_TAG, "被点击...");
+        Intent intent = new Intent();
+        intent.setClass(MainPageActivity.this,MainActivity.class);
+        startActivity(intent);
+        MainPageActivity.this.finish();
+    }
 
 }
